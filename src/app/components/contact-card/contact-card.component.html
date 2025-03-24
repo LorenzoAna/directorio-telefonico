@@ -1,0 +1,15 @@
+<div class="card" style="width: 18rem">
+  <img
+  [src]="getAvatarUrl(contact.name, contact.lastName)"
+class="card-img-top" alt="..." />
+  <div class="card-body">
+    <h5 class="card-title">{{ contact.name }} {{ contact.lastName }}</h5>
+
+    <div class="card-text d-flex flex-column">
+      <span>Móvil: {{ contact.phone }} </span>
+      <span>Email: {{ contact.email }} </span>
+      <span>Cargo: {{ contact.position }} </span>
+      <a href="#" class="btn btn-primary mt-2">Detalles</a>
+    </div>
+  </div>
+</div>
