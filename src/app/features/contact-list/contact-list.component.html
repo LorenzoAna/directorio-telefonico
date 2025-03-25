@@ -8,7 +8,10 @@
           (orderChange)="onOrderChange($event)"
         ></app-reusable-select>
       </div>
-      <div class="list-container d-flex gap-4 flex-wrap">
+      <div
+        *ngIf="contacts$ | async as contacts"
+        class="list-container d-flex gap-4 flex-wrap"
+      >
         <app-contact-card
           *ngFor="let contact of contacts"
           [contact]="contact"

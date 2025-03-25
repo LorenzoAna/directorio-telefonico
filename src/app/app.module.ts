@@ -7,7 +7,6 @@ import { ContactCardComponent } from './features/contact-card/contact-card.compo
 import { ContactListComponent } from './features/contact-list/contact-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ContactService } from './core/services/contact.service';
-import { ReusableButtonComponent } from './shared/components/reusable-button/reusable-button.component';
 import { ReusableSelectComponent } from './shared/components/reusable-select/reusable-select.component';
 import { SidebarComponent } from './features/sidebar/sidebar.component';
 
@@ -16,7 +15,6 @@ import { SidebarComponent } from './features/sidebar/sidebar.component';
     AppComponent,
     ContactCardComponent,
     ContactListComponent,
-    ReusableButtonComponent,
     ReusableSelectComponent,
     SidebarComponent,
   ],
