@@ -2,10 +2,16 @@
   <div class="row">
     <div class="col">
       <h2 class="display-2 my-4">Lista de contactos</h2>
+
       <div class="order-select col-3 my-3">
-        <app-reusable-select  (orderChange)="onOrderChange($event)"></app-reusable-select>
+        <app-reusable-select
+          (orderChange)="onOrderChange($event)"
+        ></app-reusable-select>
       </div>
-      <div class="list-container d-flex gap-4 flex-wrap ">
+      <div
+        *ngIf="contacts$ | async as contacts"
+        class="list-container d-flex gap-4 flex-wrap"
+      >
         <app-contact-card
           *ngFor="let contact of contacts"
           [contact]="contact"

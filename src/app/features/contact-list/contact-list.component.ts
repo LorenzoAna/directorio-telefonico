@@ -8,23 +8,18 @@ import { Contact } from 'src/app/shared/models/contact.model';
   styleUrls: ['./contact-list.component.scss'],
 })
 export class ContactListComponent implements OnInit {
-  constructor(private contactService: ContactService) {}
-  contacts: Contact[] = [];
-  selectedOrder: string = 'name'; // Valor por defecto
 
-  ngOnInit(): void {
-    this.getContacts(this.selectedOrder);
+  public contacts$;
+
+  constructor(private contactService: ContactService) {
+    this.contacts$ = this.contactService.getAllContacts();
   }
 
-  getContacts(order: any): void {
-    this.contactService.getAllContacts().subscribe((contacts) => {
-      const orderContacts = this.contactService.sortContacts(contacts, order);
-      this.contacts = orderContacts;
-    });
+  ngOnInit(): void {
+    //this.getContacts(this.selectedOrder);
   }
 
   onOrderChange(order: any): void {
-    this.selectedOrder = order;
-    this.getContacts(this.selectedOrder);
+    this.contacts$ = this.contactService.getAllContacts(order);
   }
 }

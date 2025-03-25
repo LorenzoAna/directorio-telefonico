@@ -12,9 +12,7 @@ export class ContactService {
   constructor(private readonly http: HttpClient) {}
 
   private url = `http://localhost:3000`;
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-  };
+
   private defaultContact: Contact = {
     id: 0,
     name: '',
@@ -25,34 +23,13 @@ export class ContactService {
   };
 
   /** GET: obtener todos los contactos */
-  getAllContacts(): Observable<Contact[]> {
-    return this.http.get<Contact[]>(`${this.url}/contacts`).pipe(
-      tap((contacts) => console.log('Contactos recibidos:', contacts)), // Solo logea sin cambiar nada
+  getAllContacts(order: keyof Contact = 'name'): Observable<Contact[]> {
+    return this.http.get<Contact[]>(`${this.url}/contacts?_sort=${order}`).pipe(
+      tap((contacts) => console.log('Contactos recibidos:', contacts)),
       catchError(this.handleError<Contact[]>('getContacts', []))
     );
   }
-  /** Función reutilizable para ordenar los contactos por un campo específico */
-  sortContacts(
-    contacts: Contact[],
-    field: keyof Contact,
-    order: 'asc' | 'desc' = 'asc'
-  ): Contact[] {
-    return contacts.sort((a, b) => {
-      // Asegurarse de que el campo sea tratado como string o number
-      const valueA = a[field];
-      const valueB = b[field];
-      if (typeof valueA === 'string' && typeof valueB === 'string') {
-        return order === 'asc'
-          ? valueA.localeCompare(valueB)
-          : valueB.localeCompare(valueA);
-      } else if (typeof valueA === 'number' && typeof valueB === 'number') {
-        return order === 'asc' ? valueA - valueB : valueB - valueA;
-      } else {
-        // Si son de diferentes tipos o algo inesperado
-        return 0;
-      }
-    });
-  }
+
   /** GET: obtener los contactos asociados a un user */
   getContactsByUserId(userId: string): Observable<any[]> {
     return this.http
