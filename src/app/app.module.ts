@@ -9,6 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ContactService } from './core/services/contact.service';
 import { ReusableSelectComponent } from './shared/components/reusable-select/reusable-select.component';
 import { SidebarComponent } from './features/sidebar/sidebar.component';
+import { LoginComponent } from './features/login/login.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,8 +19,9 @@ import { SidebarComponent } from './features/sidebar/sidebar.component';
     ContactListComponent,
     ReusableSelectComponent,
     SidebarComponent,
+    LoginComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [ContactService],
   bootstrap: [AppComponent],
 })
