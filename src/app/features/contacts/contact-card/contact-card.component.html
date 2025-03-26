@@ -1,7 +1,11 @@
 <div class="card" style="width: 18rem">
   <img
-  [src]="getAvatarUrl(contact.name, contact.lastName)"
-class="card-img-top" alt="..." />
+    src="https://ui-avatars.com/api/?name={{ contact.name }}+{{
+      contact.lastName
+    }}&background=0D8ABC&color=fff&size=128"
+    class="card-img-top"
+    alt="..."
+  />
   <div class="card-body">
     <h5 class="card-title">{{ contact.name }} {{ contact.lastName }}</h5>
 

@@ -1,0 +1,51 @@
+<div
+  class="container full-height d-flex align-items-center justify-content-center"
+>
+  <div class="row">
+    <div class="col">
+      <form [formGroup]="formulario" class="rounded p-5 bg-blue text-white" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="name" class="form-label">Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            formControlName="name"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPhone1" class="form-label">Teléfono</label>
+          <input
+            type="number"
+            class="form-control"
+            id="exampleInputPhone1"
+            aria-describedby="phoneHelp"
+            formControlName="phone"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="rol" class="form-label">Rol</label>
+          <select class="form-control" id="rol" formControlName="rol">
+            <option value="USER">Usuario</option>
+            <option value="ADMIN">Administrador</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label"
+            >Contraseña</label
+          >
+          <input
+            type="password"
+            class="form-control"
+            id="exampleInputPassword1"
+            formControlName="password"
+          />
+        </div>
+
+        <div class="d-flex justify-content-center">
+          <button type="submit" class="btn btn-light">Registrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
