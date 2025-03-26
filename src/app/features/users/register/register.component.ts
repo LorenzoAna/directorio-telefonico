@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class RegisterComponent {
   formulario: FormGroup;
 
   // Inyectamos el servicio UserService en el constructor
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
     this.formulario = new FormGroup({
       name: new FormControl(),
       phone: new FormControl(),
@@ -29,6 +30,8 @@ export class RegisterComponent {
       this.userService.register(formValue).subscribe({
         next: (response) => {
           console.log('User creado con éxito', response);
+          // Redirige al Dashboard en caso de éxito
+          this.router.navigate(['/login']);
         },
         error: (error) => {
           console.error('Error al crear usuario', error);

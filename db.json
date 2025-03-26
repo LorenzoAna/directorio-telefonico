@@ -20,13 +20,6 @@
       "phone": 987987987,
       "rol": "ADMIN",
       "pass": "admin123"
-    },
-    {
-      "id": "3dbe",
-      "name": "Ana",
-      "phone": 666,
-      "rol": "ADMIN",
-      "password": "1234"
     }
   ],
   "contacts": [
