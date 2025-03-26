@@ -14,7 +14,7 @@ export class ContactService {
   private url = `http://localhost:3000`;
 
   private defaultContact: Contact = {
-    id: 0,
+    id: '0',
     name: '',
     lastName: '',
     phone: '',
