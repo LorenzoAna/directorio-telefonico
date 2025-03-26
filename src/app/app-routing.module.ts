@@ -3,9 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { ContactCardComponent } from './features/contact-card/contact-card.component';
 import { SidebarComponent } from './features/sidebar/sidebar.component';
 import { ContactListComponent } from './features/contact-list/contact-list.component';
+import { LoginComponent } from './features/login/login.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: ContactListComponent },
   { path: 'agregar-contacto', component: SidebarComponent },
 ];
