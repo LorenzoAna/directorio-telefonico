@@ -3,28 +3,28 @@
     {
       "id": "1",
       "name": "Elena",
-      "phone": "123123123",
+      "phone": 123123123,
       "rol": "USER",
       "pass": "1234"
     },
     {
       "id": "2",
       "name": "Ana",
-      "phone": "321321321",
+      "phone": 321321321,
       "rol": "USER",
       "pass": "5678"
     },
     {
       "id": "3",
       "name": "Carlos",
-      "phone": "987987987",
+      "phone": 987987987,
       "rol": "ADMIN",
       "pass": "admin123"
     }
   ],
   "contacts": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Juan",
       "lastName": "Pérez",
       "phone": "123456789",
@@ -32,7 +32,7 @@
       "position": "Gerente"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "María",
       "lastName": "Gómez",
       "phone": "987654321",
@@ -40,7 +40,7 @@
       "position": "Desarrolladora"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Pedro",
       "lastName": "López",
       "phone": "741741741",
@@ -48,7 +48,7 @@
       "position": "Diseñador"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Sofia",
       "lastName": "Martínez",
       "phone": "369369369",
@@ -56,7 +56,7 @@
       "position": "Product Manager"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Javier",
       "lastName": "Rodríguez",
       "phone": "753753753",
@@ -64,7 +64,7 @@
       "position": "Tester"
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Lucía",
       "lastName": "Hernández",
       "phone": "258258258",
@@ -72,7 +72,7 @@
       "position": "Desarrolladora"
     },
     {
-      "id": 7,
+      "id": "7",
       "name": "Carlos",
       "lastName": "González",
       "phone": "654654654",
@@ -80,7 +80,7 @@
       "position": "Director de Marketing"
     },
     {
-      "id": 8,
+      "id": "8",
       "name": "Valeria",
       "lastName": "Fernández",
       "phone": "963963963",
@@ -88,7 +88,7 @@
       "position": "HR Manager"
     },
     {
-      "id": 9,
+      "id": "9",
       "name": "Daniel",
       "lastName": "Sánchez",
       "phone": "852852852",
@@ -96,7 +96,7 @@
       "position": "Frontend Developer"
     },
     {
-      "id": 10,
+      "id": "10",
       "name": "Elena",
       "lastName": "Paredes",
       "phone": "159159159",
@@ -105,21 +105,85 @@
     }
   ],
   "users_contacts": [
-    { "user_id": "1", "contact_id": "1" },
-    { "user_id": "1", "contact_id": "2" },
-    { "user_id": "1", "contact_id": "3" },
-    { "user_id": "1", "contact_id": "4" },
-    { "user_id": "1", "contact_id": "5" },
-    { "user_id": "1", "contact_id": "6" },
-    { "user_id": "2", "contact_id": "2" },
-    { "user_id": "2", "contact_id": "3" },
-    { "user_id": "2", "contact_id": "4" },
-    { "user_id": "2", "contact_id": "6" },
-    { "user_id": "2", "contact_id": "7" },
-    { "user_id": "3", "contact_id": "1" },
-    { "user_id": "3", "contact_id": "8" },
-    { "user_id": "3", "contact_id": "9" },
-    { "user_id": "3", "contact_id": "10" },
-    { "user_id": "3", "contact_id": "5" }
+    {
+      "user_id": "1",
+      "contact_id": "1",
+      "id": "962c"
+    },
+    {
+      "user_id": "1",
+      "contact_id": "2",
+      "id": "927b"
+    },
+    {
+      "user_id": "1",
+      "contact_id": "3",
+      "id": "8f1f"
+    },
+    {
+      "user_id": "1",
+      "contact_id": "4",
+      "id": "53eb"
+    },
+    {
+      "user_id": "1",
+      "contact_id": "5",
+      "id": "572a"
+    },
+    {
+      "user_id": "1",
+      "contact_id": "6",
+      "id": "a603"
+    },
+    {
+      "user_id": "2",
+      "contact_id": "2",
+      "id": "d049"
+    },
+    {
+      "user_id": "2",
+      "contact_id": "3",
+      "id": "64e3"
+    },
+    {
+      "user_id": "2",
+      "contact_id": "4",
+      "id": "2e2b"
+    },
+    {
+      "user_id": "2",
+      "contact_id": "6",
+      "id": "6f3d"
+    },
+    {
+      "user_id": "2",
+      "contact_id": "7",
+      "id": "24c0"
+    },
+    {
+      "user_id": "3",
+      "contact_id": "1",
+      "id": "9c19"
+    },
+    {
+      "user_id": "3",
+      "contact_id": "8",
+      "id": "8e2e"
+    },
+    {
+      "user_id": "3",
+      "contact_id": "9",
+      "id": "1e9f"
+    },
+    {
+      "user_id": "3",
+      "contact_id": "10",
+      "id": "6d88"
+    },
+    {
+      "user_id": "3",
+      "contact_id": "5",
+      "id": "1368"
+    }
   ]
 }
