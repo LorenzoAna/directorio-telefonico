@@ -13,6 +13,7 @@ import { RegisterComponent } from './features/users/register/register.component'
 import { LoginComponent } from './features/users/login/login.component';
 import { ContactService } from './core/services/contact.service';
 import { UserService } from './core/services/user.service';
+import { StorageService } from './core/services/storage.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { UserService } from './core/services/user.service';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [ContactService, UserService],
+  providers: [ContactService, UserService, StorageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

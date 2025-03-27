@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { ContactService } from 'src/app/core/services/contact.service';
+import { StorageService } from 'src/app/core/services/storage.service';
 
 @Component({
   selector: 'app-contact-list',
@@ -12,11 +13,15 @@ export class ContactListComponent implements OnInit {
   public contacts$;
   public user: any;
 
-  constructor(private contactService: ContactService, private router: Router) {
+  constructor(
+    private contactService: ContactService,
+    private router: Router,
+    private storageService: StorageService
+  ) {
     //recuperar id
-    const user = localStorage.getItem('user');
+    const user = this.storageService.getUserId();
     if (user) {
-      this.user = JSON.parse(user);
+      this.user = this.storageService.getUserId();
     } else {
       this.router.navigate(['/login']);
       return;
