@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { filter } from 'rxjs';
 import { ContactService } from 'src/app/core/services/contact.service';
+import { StorageService } from 'src/app/core/services/storage.service';
 
 @Component({
   selector: 'app-contact-list',
@@ -7,18 +10,29 @@ import { ContactService } from 'src/app/core/services/contact.service';
   styleUrls: ['./contact-list.component.scss'],
 })
 export class ContactListComponent implements OnInit {
-
   public contacts$;
+  public user: any;
 
-  constructor(private contactService: ContactService) {
-    this.contacts$ = this.contactService.getAllContacts();
+  constructor(
+    private contactService: ContactService,
+    private router: Router,
+    private storageService: StorageService
+  ) {
+    //recuperar id
+    const user = this.storageService.getUserId();
+    if (user) {
+      this.user = this.storageService.getUserId();
+    } else {
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    this.contacts$ = this.contactService.getContactsByUserId(this.user);
   }
 
-  ngOnInit(): void {
-    //this.getContacts(this.selectedOrder);
-  }
+  ngOnInit(): void {}
 
   onOrderChange(order: any): void {
-    this.contacts$ = this.contactService.getAllContacts(order);
+    this.contacts$ = this.contactService.getContactsByUserId(this.user, order);
   }
 }

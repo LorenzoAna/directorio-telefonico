@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { StorageService } from 'src/app/core/services/storage.service';
 import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
@@ -18,7 +19,11 @@ export class LoginComponent {
   formulario: FormGroup;
 
   // Inyectamos el servicio UserService en el constructor
-  constructor(private userService: UserService, private router: Router) {
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private storageService: StorageService
+  ) {
     this.formulario = new FormGroup({
       phone: new FormControl(),
       password: new FormControl(),
@@ -30,15 +35,13 @@ export class LoginComponent {
       const formValue = this.formulario.value;
       this.userService.login(formValue).subscribe({
         next: (response) => {
-          console.log('User logueado con éxito', response);
-          // Redirige al Dashboard en caso de éxito
+          // Guardar usuario en el storage
+          this.storageService.setUserId(response.id);
+
           this.router.navigate(['/dashboard']);
         },
         error: (error) => {
           console.error('Error al loguear usuario', error);
-        },
-        complete: () => {
-          console.log('Proceso de login completado');
         },
       });
     } else {
