@@ -4,22 +4,36 @@
       "id": "1",
       "name": "Elena",
       "phone": 123123123,
-      "rol": "USER",
-      "pass": "1234"
+      "role": "USER",
+      "password": "1234"
     },
     {
       "id": "2",
       "name": "Ana",
       "phone": 321321321,
-      "rol": "USER",
-      "pass": "5678"
+      "role": "USER",
+      "password": "5678"
     },
     {
       "id": "3",
       "name": "Carlos",
       "phone": 987987987,
-      "rol": "ADMIN",
-      "pass": "admin123"
+      "role": "ADMIN",
+      "password": "admin123"
+    },
+    {
+      "id": "ff6b",
+      "name": "pepe",
+      "phone": 0,
+      "role": null,
+      "password": "0000"
+    },
+    {
+      "id": "da0b",
+      "name": "pepi",
+      "phone": 7603,
+      "role": "USER",
+      "password": "0000"
     }
   ],
   "contacts": [
@@ -37,7 +51,7 @@
       "lastName": "Gómez",
       "phone": "987654321",
       "email": "maria@example.com",
-      "position": "Desarrolladora"
+      "position": "Desarroleladora"
     },
     {
       "id": "3",
@@ -69,7 +83,7 @@
       "lastName": "Hernández",
       "phone": "258258258",
       "email": "lucia@example.com",
-      "position": "Desarrolladora"
+      "position": "Desarroleladora"
     },
     {
       "id": "7",
