@@ -32,15 +32,12 @@ export class LoginComponent {
         next: (response) => {
           console.log('User logueado con éxito', response);
           // Guardar usuario en el local storage
-          localStorage.setItem('user', JSON.stringify(response.id));
+          localStorage.setItem('user', response.id);
           // Redirige al Dashboard en caso de éxito
           this.router.navigate(['/dashboard']);
         },
         error: (error) => {
           console.error('Error al loguear usuario', error);
-        },
-        complete: () => {
-          console.log('Proceso de login completado');
         },
       });
     } else {

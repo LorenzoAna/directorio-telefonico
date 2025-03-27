@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { filter } from 'rxjs';
 import { ContactService } from 'src/app/core/services/contact.service';
 
 @Component({
@@ -12,21 +13,21 @@ export class ContactListComponent implements OnInit {
   public user: any;
 
   constructor(private contactService: ContactService, private router: Router) {
-    this.contacts$ = this.contactService.getAllContacts();
-  }
-
-  ngOnInit(): void {
+    //recuperar id
     const user = localStorage.getItem('user');
     if (user) {
       this.user = JSON.parse(user);
-      console.log('Usuario recuperado del local storage', this.user);
     } else {
-      console.log('No hay usuario en el local storage');
       this.router.navigate(['/login']);
+      return;
     }
+
+    this.contacts$ = this.contactService.getContactsByUserId(this.user);
   }
 
+  ngOnInit(): void {}
+
   onOrderChange(order: any): void {
-    this.contacts$ = this.contactService.getAllContacts(order);
+    this.contacts$ = this.contactService.getContactsByUserId(this.user, order);
   }
 }
