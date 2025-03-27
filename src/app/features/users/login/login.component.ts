@@ -31,6 +31,8 @@ export class LoginComponent {
       this.userService.login(formValue).subscribe({
         next: (response) => {
           console.log('User logueado con éxito', response);
+          // Guardar usuario en el local storage
+          localStorage.setItem('user', JSON.stringify(response.id));
           // Redirige al Dashboard en caso de éxito
           this.router.navigate(['/dashboard']);
         },
