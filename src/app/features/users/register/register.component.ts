@@ -17,7 +17,7 @@ export class RegisterComponent {
     this.formulario = new FormGroup({
       name: new FormControl(),
       phone: new FormControl(),
-      rol: new FormControl(),
+      role: new FormControl(),
       password: new FormControl(),
     });
   }

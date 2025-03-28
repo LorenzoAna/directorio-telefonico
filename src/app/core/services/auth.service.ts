@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
+import { User } from 'src/app/shared/models/user.model';
 import { StorageService } from './storage.service';
 
 @Injectable({
