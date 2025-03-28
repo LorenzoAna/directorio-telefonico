@@ -9,8 +9,10 @@ import { StorageService } from './storage.service';
 })
 export class AuthService {
   private baseUrl: string = 'http://localhost:3000/users';
-  private http = inject(HttpClient);
-  constructor(private storageService: StorageService) {}
+  constructor(
+    private storageService: StorageService,
+    private http: HttpClient
+  ) {}
 
   register(formValue: any): Observable<any> {
     return this.http
