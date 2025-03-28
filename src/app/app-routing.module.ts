@@ -5,17 +5,28 @@ import { ContactListComponent } from './features/contacts/contact-list/contact-l
 import { LoginComponent } from './features/users/login/login.component';
 import { RegisterComponent } from './features/users/register/register.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { AddNewContactComponent } from './features/contacts/add-new-contact/add-new-contact.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/contacts', pathMatch: 'full' },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   {
-    path: 'dashboard',
+    path: 'contacts',
     component: ContactListComponent,
-    canActivate: [AuthGuard], // Apply the AuthGuard to protect the dashboard route
+    canActivate: [AuthGuard],
+   },
+  {
+    path: 'contacts/add-new',
+    component: AddNewContactComponent,
+    canActivate: [AuthGuard],
   },
-  { path: 'add-contact', component: SidebarComponent },
+  //{
+  //   path: 'contacts',
+  //   component: ContactListComponent,
+  //   canActivateChild: [AuthGuard],
+  //   children: [{ path: 'add-new', component: AddNewContactComponent }],
+  // },
 ];
 
 @NgModule({
