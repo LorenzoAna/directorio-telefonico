@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/core/services/storage.service';
-import { UserService } from 'src/app/core/services/user.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -18,9 +18,9 @@ export class LoginComponent {
   // tipo FormGroup es un formulario reactivo que nos permite realizar ciertas validaciones etc
   formulario: FormGroup;
 
-  // Inyectamos el servicio UserService en el constructor
+  // Inyectamos el servicio AuthService en el constructor
   constructor(
-    private userService: UserService,
+    private authService: AuthService,
     private router: Router,
     private storageService: StorageService
   ) {
@@ -33,12 +33,12 @@ export class LoginComponent {
   onSubmit(): void {
     if (this.formulario.valid) {
       const formValue = this.formulario.value;
-      this.userService.login(formValue).subscribe({
+      this.authService.login(formValue).subscribe({
         next: (response) => {
           // Guardar usuario en el storage
           this.storageService.setUserId(response.id);
 
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/contacts']);
         },
         error: (error) => {
           console.error('Error al loguear usuario', error);

@@ -12,8 +12,9 @@ import { ReusableSelectComponent } from './shared/components/reusable-select/reu
 import { RegisterComponent } from './features/users/register/register.component';
 import { LoginComponent } from './features/users/login/login.component';
 import { ContactService } from './core/services/contact.service';
-import { UserService } from './core/services/user.service';
+import { AuthService } from './core/services/auth.service';
 import { StorageService } from './core/services/storage.service';
+import { AddNewContactComponent } from './features/contacts/add-new-contact/add-new-contact.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { StorageService } from './core/services/storage.service';
     SidebarComponent,
     LoginComponent,
     RegisterComponent,
+    AddNewContactComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,7 @@ import { StorageService } from './core/services/storage.service';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [ContactService, UserService, StorageService],
+  providers: [ContactService, AuthService, StorageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

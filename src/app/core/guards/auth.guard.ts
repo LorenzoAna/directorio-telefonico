@@ -1,18 +1,28 @@
 import { Injectable } from '@angular/core';
 import { StorageService } from '../services/storage.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard {
-  constructor(private storageService: StorageService, private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   canActivate(): boolean {
-    if (this.storageService.getUserId()) {
-      return true; // Allow access if the user is authenticated
+    if (this.authService.isUserLoggedIn()) {
+      return true;
     } else {
-      this.router.navigate(['/login']); // Redirect to login if not authenticated
-      return false; // Prevent access to the route
+      this.router.navigate(['/login']);
+      return false;
+    }
+  }
+
+  canActivateChild(): boolean {
+    if (this.authService.isUserLoggedIn()) {
+      return true;
+    } else {
+      this.router.navigate(['/login']);
+      return false;
     }
   }
 }

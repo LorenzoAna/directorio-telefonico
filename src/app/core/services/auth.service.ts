@@ -1,14 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
+export class AuthService {
   private baseUrl: string = 'http://localhost:3000/users';
   private http = inject(HttpClient);
-  constructor() {}
+  constructor(private storageService: StorageService) {}
 
   register(formValue: any): Observable<any> {
     return this.http
@@ -25,14 +26,13 @@ export class UserService {
       phone: formValue.phone,
       password: formValue.password,
     };
-    
+
     // Realizamos una solicitud GET con un filtro por teléfono y contraseña
     return this.http.get<any[]>(this.baseUrl, { params }).pipe(
       map((users) => {
         if (users.length > 0) {
           return users[0];
         } else {
-          // si no hay coincidencias
           throw new Error('Credenciales incorrectas');
         }
       }),
@@ -40,6 +40,21 @@ export class UserService {
         this.handleError(error, 'Error al realizar el login')
       )
     );
+  }
+
+  isUserLoggedIn(): boolean {
+    if (this.storageService.getUserId()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  isAdmin(): boolean {
+    if (this.storageService.getUserRole()) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   // Manejo de errores
