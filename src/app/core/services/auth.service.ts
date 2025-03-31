@@ -59,7 +59,10 @@ export class AuthService {
       return false;
     }
   }
-  
+
+  logout(): void {
+    this.storageService.clearUserData();
+  }
 
   // Manejo de errores
   private handleError(error: any, message: string): Observable<never> {
