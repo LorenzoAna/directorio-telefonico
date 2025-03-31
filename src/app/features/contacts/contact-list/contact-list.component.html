@@ -11,11 +11,12 @@
       </div>
       <div
         *ngIf="contacts$ | async as contacts"
-        class="list-container d-flex gap-4 flex-wrap justify-content-center"
+        class="list-container d-flex gap-4 flex-wrap justify-content-center mb-4"
       >
         <app-contact-card
           *ngFor="let contact of contacts"
           [contact]="contact"
+          (contactDeleted)="onContactDeleted()"
         ></app-contact-card>
       </div>
     </div>

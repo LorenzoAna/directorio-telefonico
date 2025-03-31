@@ -13,7 +13,13 @@
       <span>Móvil: {{ contact.phone }} </span>
       <span>Email: {{ contact.email }} </span>
       <span>Cargo: {{ contact.position }} </span>
-      <a href="#" class="btn btn-secondary mt-2">Detalles</a>
+      <div class="acctions d-flex justify-content-between">
+        <a href="#" class="btn btn-secondary mt-2">Detalles</a>
+        <a href="#" class="btn btn-secondary mt-2">Editar</a>
+        <button (click)="deleteContact()" class="btn btn-secondary mt-2">
+          Borrar
+        </button>
+      </div>
     </div>
   </div>
 </div>

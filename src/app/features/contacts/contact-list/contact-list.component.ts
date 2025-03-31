@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { filter } from 'rxjs';
+import { filter, map, Observable, of } from 'rxjs';
 import { ContactService } from 'src/app/core/services/contact.service';
 import { StorageService } from 'src/app/core/services/storage.service';
 
@@ -10,7 +10,7 @@ import { StorageService } from 'src/app/core/services/storage.service';
   styleUrls: ['./contact-list.component.scss'],
 })
 export class ContactListComponent implements OnInit {
-  public contacts$;
+  public contacts$: Observable<any[]> = of([]);
   public user: any;
 
   constructor(
@@ -34,5 +34,8 @@ export class ContactListComponent implements OnInit {
 
   onOrderChange(order: any): void {
     this.contacts$ = this.contactService.getContactsByUserId(this.user, order);
+  }
+  onContactDeleted(): void {
+    this.contacts$ = this.contactService.getContactsByUserId(this.user);
   }
 }

@@ -39,38 +39,72 @@ export class ContactService {
       catchError(this.handleError<Contact[]>('getContactsByUserId', []))
     );
   }
-
+  /** Crear nuevo contacto y su relación */
   addNewContact(formValue: any, userId: string): Observable<Contact> {
     return this.http
       .get<Contact[]>(`${this.baseUrl}/contacts?email=${formValue.email}`)
       .pipe(
         switchMap((contacts) => {
           if (contacts.length > 0) {
-            // Si el contacto ya existe, devuelve el primer contacto encontrado
+            const contact = contacts[0];
             console.log(
               'Ya existe un contacto con ese email:',
               formValue.email
             );
-
-            return of(contacts[0]);
+            return this.checkUserContactRelation(userId, contact.id).pipe(
+              switchMap((relationExists) => {
+                if (relationExists) {
+                  console.log('La relación ya existe:', relationExists);
+                  return of(contact); //Convierte el valor contact en un observable que emite ese valor
+                } else {
+                  return this.createUserContactRelation(
+                    userId,
+                    contact.id
+                  ).pipe(map(() => contact)); //asegura que el observable final emita el contacto, no la relación creada.
+                }
+              })
+            );
           } else {
-            // Si no existe, crea uno nuevo
-            return this.http.post<any>(`${this.baseUrl}/contacts`, formValue);
+            return this.http
+              .post<Contact>(`${this.baseUrl}/contacts`, formValue)
+              .pipe(
+                switchMap((newContact) => {
+                  console.log('Contacto creado con éxito:', newContact);
+                  return this.createUserContactRelation(
+                    userId,
+                    newContact.id
+                  ).pipe(map(() => newContact));
+                })
+              );
           }
         }),
-        switchMap((contact) => {
-          console.log('Contacto creado con éxito:', contact);
-          const userContactRelation = {
-            user_id: userId,
-            contact_id: contact.id,
-          };
-          return this.http.post<any>(
-            `${this.baseUrl}/users_contacts`,
-            userContactRelation
-          );
-        }),
-        tap((relacion) => console.log('Relacion creada con éxito:', relacion)),
         catchError(this.handleError<any>('addNewContact', {}))
+      );
+  }
+  private checkUserContactRelation(
+    userId: string,
+    contactId: string
+  ): Observable<boolean> {
+    return this.http
+      .get<any[]>(
+        `${this.baseUrl}/users_contacts?user_id=${userId}&contact_id=${contactId}`
+      )
+      .pipe(map((relations) => relations.length > 0));
+  }
+
+  /** Crear la relación user-contact */
+  private createUserContactRelation(
+    userId: string,
+    contactId: string
+  ): Observable<any> {
+    const userContactRelation = {
+      user_id: userId,
+      contact_id: contactId,
+    };
+    return this.http
+      .post<any>(`${this.baseUrl}/users_contacts`, userContactRelation)
+      .pipe(
+        tap((relacion) => console.log('Relacion creada con éxito:', relacion))
       );
   }
   /** Manejar los posibles errores */
@@ -79,5 +113,34 @@ export class ContactService {
       console.error(`${operation} failed: ${error.message}`);
       return of(result as T);
     };
+  }
+
+  /** Eliminar contacto*/
+  /** Eliminar contacto y relación */
+  deleteContact(contactId: string): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/contacts/${contactId}`).pipe(
+      switchMap(() => {
+        // Primero, verifica si la relación existe
+        return this.http
+          .get<any[]>(`${this.baseUrl}/users_contacts?contact_id=${contactId}`)
+          .pipe(
+            switchMap((relations) => {
+              if (relations.length > 0) {
+                // Si la relación existe, elimina cada una de ellas
+                const deleteRequests = relations.map((relation) =>
+                  this.http.delete<any>(
+                    `${this.baseUrl}/users_contacts/${relation.id}`
+                  )
+                );
+                return forkJoin(deleteRequests);
+              } else {
+                // Si no hay relaciones, simplemente devuelve un observable vacío
+                return of(null);
+              }
+            })
+          );
+      }),
+      catchError(this.handleError<any>('deleteContact'))
+    );
   }
 }
