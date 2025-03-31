@@ -23,7 +23,10 @@ export class StorageService {
     return this.userRole;
   }
 
-  clearUserId(): void {
+  clearUserData(): void {
     this.userId = null;
+    this.userRole = null;
+
+    localStorage.removeItem('userId'); // quitar esta linea
   }
 }
