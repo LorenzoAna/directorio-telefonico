@@ -11,22 +11,22 @@ const routes: Routes = [
   { path: '', redirectTo: '/contacts', pathMatch: 'full' },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
+  // {
+  //   path: 'contacts',
+  //   component: ContactListComponent,
+  //   canActivate: [AuthGuard],
+  //  },
+  // {
+  //   path: 'contacts/add-new',
+  //   component: AddNewContactComponent,
+  //   canActivate: [AuthGuard],
+  // },
   {
     path: 'contacts',
     component: ContactListComponent,
-    canActivate: [AuthGuard],
-   },
-  {
-    path: 'contacts/add-new',
-    component: AddNewContactComponent,
-    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    children: [{ path: 'add-new', component: AddNewContactComponent }],
   },
-  //{
-  //   path: 'contacts',
-  //   component: ContactListComponent,
-  //   canActivateChild: [AuthGuard],
-  //   children: [{ path: 'add-new', component: AddNewContactComponent }],
-  // },
 ];
 
 @NgModule({
