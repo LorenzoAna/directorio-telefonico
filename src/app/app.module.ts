@@ -14,7 +14,7 @@ import { LoginComponent } from './features/users/login/login.component';
 import { ContactService } from './core/services/contact.service';
 import { AuthService } from './core/services/auth.service';
 import { StorageService } from './core/services/storage.service';
-import { AddNewContactComponent } from './features/contacts/add-new-contact/add-new-contact.component';
+import { ContactFormComponent } from './features/contacts/contact-form/contact-form.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,7 @@ import { AddNewContactComponent } from './features/contacts/add-new-contact/add-
     SidebarComponent,
     LoginComponent,
     RegisterComponent,
-    AddNewContactComponent,
+    ContactFormComponent
   ],
   imports: [
     BrowserModule,

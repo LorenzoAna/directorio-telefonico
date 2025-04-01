@@ -55,6 +55,14 @@
       "phone": "753753753",
       "email": "javier@example.com",
       "position": "Tester"
+    },
+    {
+      "name": "Ana",
+      "lastName": "Lorenzo",
+      "phone": 636562696,
+      "email": "ana@ana.es",
+      "position": "dev",
+      "id": "b253"
     }
   ],
   "users_contacts": [
@@ -97,6 +105,11 @@
       "id": "2e2b",
       "user_id": "2",
       "contact_id": "4"
+    },
+    {
+      "id": "7a47",
+      "user_id": "1",
+      "contact_id": "b253"
     }
   ]
 }

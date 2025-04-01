@@ -5,17 +5,17 @@ import { ContactListComponent } from './features/contacts/contact-list/contact-l
 import { LoginComponent } from './features/users/login/login.component';
 import { RegisterComponent } from './features/users/register/register.component';
 import { AuthGuard } from './core/guards/auth.guard';
-import { AddNewContactComponent } from './features/contacts/add-new-contact/add-new-contact.component';
+import { ContactFormComponent } from './features/contacts/contact-form/contact-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/contacts', pathMatch: 'full' },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  // {
-  //   path: 'contacts',
-  //   component: ContactListComponent,
-  //   canActivate: [AuthGuard],
-  //  },
+  {
+    path: 'contacts',
+    component: ContactListComponent,
+    canActivate: [AuthGuard],
+  },
   // {
   //   path: 'contacts/add-new',
   //   component: AddNewContactComponent,
@@ -23,9 +23,20 @@ const routes: Routes = [
   // },
   {
     path: 'contacts',
-    component: ContactListComponent,
+    //  component: ContactListComponent,
     canActivateChild: [AuthGuard],
-    children: [{ path: 'add-new', component: AddNewContactComponent }],
+    children: [
+      {
+        path: 'new',
+        component: ContactFormComponent,
+        data: { mode: 'create' },
+      },
+      {
+        path: 'edit/:id',
+        component: ContactFormComponent,
+        data: { mode: 'edit' },
+      },
+    ],
   },
 ];
 

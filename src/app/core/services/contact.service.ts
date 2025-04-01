@@ -31,7 +31,6 @@ export class ContactService {
         const contactIds = result.userContactRelation.map(
           (userContactRelation) => userContactRelation.contact_id
         );
-
         return result.contacts.filter((contact) =>
           contactIds.includes(contact.id)
         );
@@ -47,10 +46,7 @@ export class ContactService {
         switchMap((contacts) => {
           if (contacts.length > 0) {
             const contact = contacts[0];
-            console.log(
-              'Ya existe un contacto con ese email:',
-              formValue.email
-            );
+            //ya existe un user con ese email
             return this.checkUserContactRelation(userId, contact.id).pipe(
               switchMap((relationExists) => {
                 if (relationExists) {
@@ -115,7 +111,6 @@ export class ContactService {
     };
   }
 
-
   deleteContact(contactId: string, userId: string): Observable<any> {
     const getRelationsUrl = `${this.baseUrl}/users_contacts?contact_id=${contactId}&user_id=${userId}`;
     const deleteRelationUrl = (relationId: string) =>
@@ -144,4 +139,13 @@ export class ContactService {
     );
   }
 
+  getContactById(contactId: string): Observable<Contact> {
+    return this.http.get<Contact>(`${this.baseUrl}/contacts/${contactId}`);
+  }
+
+  editContact(formValue: any, contactId: string): Observable<Contact> {
+    return this.http
+      .put<Contact>(`${this.baseUrl}/contacts/${contactId}`, formValue)
+      .pipe(catchError(this.handleError<any>('editContact', {})));
+  }
 }
