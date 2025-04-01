@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class StorageService {
-  private userId: string | null = null;
-  private userRole: string | null = null;
+  // private userId: string | null = null;
+  // private userRole: string | null = null;
 
   setUserId(id: string): void {
     //this.userId = id;
@@ -13,19 +13,21 @@ export class StorageService {
     localStorage.setItem('userId', id); // quitar esta linea
   }
   setUserRole(role: string): void {
-    this.userRole = role;
+    //this.userRole = role;
+    localStorage.setItem('userRole', role); // quitar esta linea
   }
   getUserId(): string | null {
     //return this.userId;
     return localStorage.getItem('userId'); // quitar esta linea
   }
   getUserRole(): string | null {
-    return this.userRole;
+    //return this.userRole;
+    return localStorage.getItem('userRole'); // quitar esta linea
   }
 
   clearUserData(): void {
-    this.userId = null;
-    this.userRole = null;
+    // this.userId = null;
+    // this.userRole = null;
 
     localStorage.removeItem('userId'); // quitar esta linea
   }
