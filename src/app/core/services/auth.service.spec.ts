@@ -5,19 +5,32 @@ import {
 } from '@angular/common/http/testing';
 
 import { AuthService } from './auth.service';
+import { StorageService } from './storage.service';
 
 describe('AuthService', () => {
-  let service: AuthService;
+  let authService: AuthService;
   let httpMock: HttpTestingController;
+  let storageService: jasmine.SpyObj<StorageService>;
 
   beforeEach(() => {
+    const storageServiceSpy = jasmine.createSpyObj('StorageService', [
+      'getUserId',
+      'getUserRole',
+      'clearUserData',
+    ]);
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [AuthService],
+      providers: [
+        AuthService,
+        { provide: StorageService, useValue: storageServiceSpy },
+      ],
     });
 
-    service = TestBed.inject(AuthService);
+    authService = TestBed.inject(AuthService);
     httpMock = TestBed.inject(HttpTestingController);
+    storageService = TestBed.inject(
+      StorageService
+    ) as jasmine.SpyObj<StorageService>;
   });
 
   // Aseguramos que no hayan solicitudes HTTP pendientes después de cada prueba
@@ -26,7 +39,7 @@ describe('AuthService', () => {
   });
 
   it('userService es creado', () => {
-    expect(service).toBeTruthy();
+    expect(authService).toBeTruthy();
   });
 
   describe('#register', () => {
@@ -41,7 +54,7 @@ describe('AuthService', () => {
       const mockResponse = { success: true };
 
       // Llamamos al servicio de registro y verificamos la respuesta
-      service.register(formValue).subscribe((response) => {
+      authService.register(formValue).subscribe((response) => {
         expect(response).toEqual(mockResponse);
       });
 
@@ -64,7 +77,7 @@ describe('AuthService', () => {
       const errorMessage = 'Error al registrar usuario';
 
       // Llamamos al servicio y verificamos que se maneje el error
-      service.register(formValue).subscribe({
+      authService.register(formValue).subscribe({
         next: () => fail('se esperaba un error, no datos'), // Fallamos si llega una respuesta exitosa
 
         error: (error) => {
@@ -83,14 +96,14 @@ describe('AuthService', () => {
       const mockUser = [{ phone: 123123123, password: '1234' }];
 
       // Llamamos al servicio de login y verificamos la respuesta
-      service.login(formValue).subscribe((user) => {
+      authService.login(formValue).subscribe((user) => {
         expect(user).toEqual(mockUser[0]);
       });
 
       // interceptamos la solicitud GET
       const req = httpMock.expectOne(
         (request) =>
-          request.url === service['baseUrl'] &&
+          request.url === authService['baseUrl'] &&
           request.params.has('phone') &&
           request.params.has('password')
       );
@@ -105,7 +118,7 @@ describe('AuthService', () => {
       const baseUrl: string = 'http://localhost:3000/users';
 
       // Llamamos al servicio y verificamos que se maneje el error
-      service.login(formValue).subscribe({
+      authService.login(formValue).subscribe({
         next: () => fail('se esperaba un error, no datos'),
         error: (error) => {
           expect(error.message).toContain('Error al realizar el login'); // Verificamos que el mensaje de error esté correcto
@@ -130,7 +143,7 @@ describe('AuthService', () => {
       const errorMessage = 'Error al realizar el login';
 
       // Llamamos al servicio y verificamos que se maneje el error
-      service.login(formValue).subscribe({
+      authService.login(formValue).subscribe({
         next: () => fail('se esperaba un error, no datos'), // Fallamos si llega una respuesta exitosa
 
         error: (error) => {
@@ -145,6 +158,20 @@ describe('AuthService', () => {
           request.params.has('password')
       );
       req.flush('Error', { status: 500, statusText: 'Server Error' });
+    });
+
+    it('isUserLoggedIn() Debe checkear si el usuario está registrado', () => {
+      storageService.getUserId.and.returnValue('123');
+      expect(authService.isUserLoggedIn()).toBe(true);
+    });
+
+    it('isAdmin() Debe checkear si el usuario es administrador', () => {
+      storageService.getUserRole.and.returnValue('ADMIN');
+      expect(authService.isAdmin()).toBe(true);
+    });
+    it('logout() Debe realizar log out', () => {
+      authService.logout();
+      expect(storageService.clearUserData).toHaveBeenCalled();
     });
   });
 });

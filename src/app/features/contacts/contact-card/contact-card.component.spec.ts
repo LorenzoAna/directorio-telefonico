@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ContactCardComponent } from './contact-card.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 describe('ContactCardComponent', () => {
   let component: ContactCardComponent;
@@ -8,7 +10,8 @@ describe('ContactCardComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ContactCardComponent]
+      imports: [HttpClientTestingModule, RouterLink, ActivatedRoute],
+      declarations: [ContactCardComponent],
     });
     fixture = TestBed.createComponent(ContactCardComponent);
     component = fixture.componentInstance;

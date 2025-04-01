@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ContactFormComponent } from './contact-form.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ContactFormComponent', () => {
   let component: ContactFormComponent;
@@ -8,7 +9,8 @@ describe('ContactFormComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ContactFormComponent]
+      imports: [HttpClientTestingModule],
+      declarations: [ContactFormComponent],
     });
     fixture = TestBed.createComponent(ContactFormComponent);
     component = fixture.componentInstance;

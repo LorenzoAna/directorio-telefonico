@@ -53,7 +53,7 @@ export class AuthService {
     }
   }
   isAdmin(): boolean {
-    if (this.storageService.getUserRole()) {
+    if (this.storageService.getUserRole()==="ADMIN") {
       return true;
     } else {
       return false;
