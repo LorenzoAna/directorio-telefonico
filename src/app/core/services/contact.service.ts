@@ -77,6 +77,7 @@ export class ContactService {
         catchError(this.handleError<any>('addNewContact', {}))
       );
   }
+  
   private checkUserContactRelation(
     userId: string,
     contactId: string
