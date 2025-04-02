@@ -13,6 +13,13 @@
       "phone": 321321321,
       "role": "ADMIN",
       "password": "5678"
+    },
+    {
+      "id": "0651",
+      "name": "Ana Lorenzo",
+      "phone": 636562696,
+      "role": "ADMIN",
+      "password": "1234"
     }
   ],
   "contacts": [

@@ -6,24 +6,24 @@ import { LoginComponent } from './features/users/login/login.component';
 import { RegisterComponent } from './features/users/register/register.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { ContactFormComponent } from './features/contacts/contact-form/contact-form.component';
+import { DashboardComponent } from './features/dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/contacts', pathMatch: 'full' },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'contacts',
     component: ContactListComponent,
     canActivate: [AuthGuard],
   },
-  // {
-  //   path: 'contacts/add-new',
-  //   component: AddNewContactComponent,
-  //   canActivate: [AuthGuard],
-  // },
   {
     path: 'contacts',
-    //  component: ContactListComponent,
     canActivateChild: [AuthGuard],
     children: [
       {

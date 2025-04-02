@@ -36,9 +36,16 @@ export class LoginComponent {
       this.authService.login(formValue).subscribe({
         next: (response) => {
           // Guardar usuario en el storage
+          // this.storageService.setUserData(
+          //   response.id,
+          //   response.name,
+          //   response.role
+          // );
           this.storageService.setUserId(response.id);
+          this.storageService.setUserName(response.name);
+          this.storageService.setUserRole(response.role);
 
-          this.router.navigate(['/contacts']);
+          this.router.navigate(['/dashboard']);
         },
         error: (error) => {
           console.error('Error al loguear usuario', error);
