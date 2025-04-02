@@ -35,17 +35,14 @@ export class LoginComponent {
       const formValue = this.formulario.value;
       this.authService.login(formValue).subscribe({
         next: (response) => {
-          // Guardar usuario en el storage
-          // this.storageService.setUserData(
-          //   response.id,
-          //   response.name,
-          //   response.role
-          // );
           this.storageService.setUserId(response.id);
           this.storageService.setUserName(response.name);
           this.storageService.setUserRole(response.role);
-
-          this.router.navigate(['/dashboard']);
+          if (response.role === 'ADMIN') {
+            this.router.navigate(['/users']);
+          } else {
+            this.router.navigate(['/contacts']);
+          }
         },
         error: (error) => {
           console.error('Error al loguear usuario', error);

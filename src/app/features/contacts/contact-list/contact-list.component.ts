@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { filter, map, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ContactService } from 'src/app/core/services/contact.service';
 import { StorageService } from 'src/app/core/services/storage.service';
+
 import { AuthCredentials } from 'src/app/shared/models/auth-credentials.model';
 
 @Component({
@@ -16,24 +17,16 @@ export class ContactListComponent implements OnInit {
 
   constructor(
     private contactService: ContactService,
-    private router: Router,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private router: Router
   ) {
-    // Recuperar datos de la navegacion
-    const navigation = this.router.getCurrentNavigation(); //Esta línea obtiene la navegación actual,
+    // Recuperar id
+    const userId = this.storageService.getUserId();
+    const userName = this.storageService.getUserName();
+    const userRole = this.storageService.getUserRole();
 
-    const state = navigation?.extras.state as {
-      userCredentials: AuthCredentials;
-    }; //accediendo al objeto de estado pasado durante la navegación y se está asegurando de que tenga la estructura esperada
-
-    if (state && state.userCredentials) {
-      this.userCredentials = state.userCredentials;
-      this.contacts$ = this.contactService.getContactsByUserId(
-        this.userCredentials.id
-      );
-    } else {
-      this.router.navigate(['/login']);
-      return;
+    if (userId) {
+      this.contacts$ = this.contactService.getContactsByUserId(userId);
     }
   }
 

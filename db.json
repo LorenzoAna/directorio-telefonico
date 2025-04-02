@@ -15,11 +15,18 @@
       "password": "5678"
     },
     {
-      "id": "0651",
-      "name": "Ana Lorenzo",
-      "phone": 636562696,
+      "id": "0400",
+      "name": "admin",
+      "phone": 6,
       "role": "ADMIN",
-      "password": "1234"
+      "password": "6"
+    },
+    {
+      "id": "805a",
+      "name": "user",
+      "phone": 0,
+      "role": "USER",
+      "password": "0"
     }
   ],
   "contacts": [
@@ -116,6 +123,16 @@
     {
       "id": "7a47",
       "user_id": "1",
+      "contact_id": "b253"
+    },
+    {
+      "id": "2e2b",
+      "user_id": "805a",
+      "contact_id": "4"
+    },
+    {
+      "id": "7a47",
+      "user_id": "805a",
       "contact_id": "b253"
     }
   ]

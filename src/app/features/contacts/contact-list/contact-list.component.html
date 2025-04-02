@@ -13,11 +13,17 @@
         *ngIf="contacts$ | async as contacts"
         class="list-container d-flex gap-4 flex-wrap justify-content-center mb-5"
       >
-        <app-contact-card
-          *ngFor="let contact of contacts"
-          [contact]="contact"
-          (contactDeleted)="onContactDeleted()"
-        ></app-contact-card>
+        <ng-container *ngIf="userCredentials?.role === 'USER'">
+          <app-contact-card
+            *ngFor="let contact of contacts"
+            [contact]="contact"
+            (contactDeleted)="onContactDeleted()"
+          ></app-contact-card>
+        </ng-container>
+        
+        <ng-container *ngIf="userCredentials?.role === 'ADMIN'">
+          <h5>Soy Admin</h5>
+        </ng-container>
       </div>
     </div>
   </div>

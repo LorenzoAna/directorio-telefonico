@@ -1,22 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SidebarComponent } from './features/contacts/sidebar/sidebar.component';
 import { ContactListComponent } from './features/contacts/contact-list/contact-list.component';
-import { LoginComponent } from './features/users/login/login.component';
-import { RegisterComponent } from './features/users/register/register.component';
+import { LoginComponent } from './features/authentication/login/login.component';
+import { RegisterComponent } from './features/authentication/register/register.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { ContactFormComponent } from './features/contacts/contact-form/contact-form.component';
-import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { UsersListComponent } from './features/admin/users-list/users-list.component';
+import { AdminGuard } from './core/guards/admin.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/contacts', pathMatch: 'full' },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  {
-    path: 'dashboard',
-    component: DashboardComponent,
-    canActivate: [AuthGuard],
-  },
+
   {
     path: 'contacts',
     component: ContactListComponent,
@@ -35,6 +30,33 @@ const routes: Routes = [
         path: 'edit/:id',
         component: ContactFormComponent,
         data: { mode: 'edit' },
+      },
+    ],
+  },
+  {
+    path: 'users',
+    component: UsersListComponent,
+    canActivate: [AdminGuard],
+  },
+  {
+    path: 'users',
+    canActivateChild: [AdminGuard],
+    children: [
+      {
+        path: ':id/contacts',
+        component: ContactListComponent,
+        children: [
+          {
+            path: 'new',
+            component: ContactFormComponent,
+            data: { mode: 'create' },
+          },
+          {
+            path: 'edit/:id',
+            component: ContactFormComponent,
+            data: { mode: 'edit' },
+          },
+        ],
       },
     ],
   },
