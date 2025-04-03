@@ -9,6 +9,7 @@ import { UsersListComponent } from './features/admin/users-list/users-list.compo
 import { AdminGuard } from './core/guards/admin.guard';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
 

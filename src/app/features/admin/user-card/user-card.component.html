@@ -11,8 +11,9 @@
 
     <div class="card-text d-flex flex-column">
       <span>Móvil: {{ user.phone }} </span>
+      <span>Rol: {{ user.role | titlecase }}</span>
 
-      <div class="acctions d-flex justify-content-between">
+      <div class="actions d-flex justify-content-between">
         <a href="#" class="btn btn-secondary mt-2">Detalles</a>
         <a
           routerLink="/contacts/edit/{{ user.id }}"
