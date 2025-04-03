@@ -11,22 +11,15 @@
       "id": "2",
       "name": "Ana",
       "phone": 321321321,
-      "role": "ADMIN",
+      "role": "USER",
       "password": "5678"
     },
     {
-      "id": "0400",
-      "name": "admin",
-      "phone": 6,
+      "id": "3",
+      "name": "Admin",
+      "phone": 999999999,
       "role": "ADMIN",
-      "password": "6"
-    },
-    {
-      "id": "105a",
-      "name": "Laura",
-      "phone": 111111111,
-      "role": "USER",
-      "password": "1234"
+      "password": "admin"
     }
   ],
   "contacts": [
@@ -55,7 +48,7 @@
       "position": "Diseñador"
     },
     {
-      "id": "5",
+      "id": "4",
       "name": "Javier",
       "lastName": "Rodríguez",
       "phone": "753753753",
@@ -63,72 +56,91 @@
       "position": "Tester"
     },
     {
+      "id": "5",
       "name": "Ana",
       "lastName": "Lorenzo",
-      "phone": 636562696,
+      "phone": "636562696",
       "email": "ana@ana.es",
-      "position": "dev",
-      "id": "b253"
+      "position": "Dev"
     },
     {
-      "id": "c94d",
-      "name": "Prueba 1",
-      "lastName": "1",
-      "phone": 1,
-      "email": "1",
-      "position": "1"
+      "id": "6",
+      "name": "Luis",
+      "lastName": "Martínez",
+      "phone": "123123123",
+      "email": "luis@example.com",
+      "position": "Manager"
+    },
+    {
+      "id": "7",
+      "name": "Carlos",
+      "lastName": "García",
+      "phone": "321321321",
+      "email": "carlos@example.com",
+      "position": "Developer"
+    },
+    {
+      "id": "8",
+      "name": "Laura",
+      "lastName": "Fernández",
+      "phone": "741741741",
+      "email": "laura@example.com",
+      "position": "Designer"
+    },
+    {
+      "name": "Alvaro",
+      "lastName": "Lopez",
+      "phone": 0,
+      "email": "alvaro",
+      "position": "tester",
+      "id": "a758"
     }
   ],
   "users_contacts": [
     {
-      "id": "962c",
+      "id": "1",
       "user_id": "1",
       "contact_id": "1"
     },
     {
-      "id": "927b",
+      "id": "2",
       "user_id": "1",
       "contact_id": "2"
     },
     {
-      "id": "8f1f",
+      "id": "3",
       "user_id": "1",
       "contact_id": "3"
     },
     {
-      "id": "572a",
+      "id": "4",
       "user_id": "1",
+      "contact_id": "4"
+    },
+    {
+      "id": "5",
+      "user_id": "2",
       "contact_id": "5"
     },
     {
-      "id": "d049",
+      "id": "6",
       "user_id": "2",
-      "contact_id": "2"
+      "contact_id": "6"
     },
     {
-      "id": "64e3",
+      "id": "7",
       "user_id": "2",
-      "contact_id": "3"
+      "contact_id": "7"
     },
     {
-      "id": "7a47",
+      "id": "8",
+      "user_id": "2",
+      "contact_id": "8"
+    },
+    {
+      "id": "1c84",
       "user_id": "1",
-      "contact_id": "b253"
-    },
-    {
-      "id": "7a47",
-      "user_id": "805a",
-      "contact_id": "b253"
-    },
-    {
-      "id": "7a47",
-      "user_id": "105a",
-      "contact_id": "b253"
-    },
-    {
-      "id": "be30",
-      "user_id": "1",
-      "contact_id": "c94d"
+      "contact_id": "a758"
     }
   ]
 }
