@@ -15,20 +15,19 @@ const routes: Routes = [
 
   {
     path: 'contacts',
-    component: ContactListComponent,
     canActivate: [AuthGuard],
-  },
-  {
-    path: 'contacts',
-    canActivateChild: [AuthGuard],
     children: [
+      {
+        path: '',
+        component: ContactListComponent,
+      },
       {
         path: 'new',
         component: ContactFormComponent,
         data: { mode: 'create' },
       },
       {
-        path: 'edit/:id',
+        path: 'edit/:idContact',
         component: ContactFormComponent,
         data: { mode: 'edit' },
       },
@@ -36,24 +35,26 @@ const routes: Routes = [
   },
   {
     path: 'users',
-    component: UsersListComponent,
     canActivate: [AdminGuard],
-  },
-  {
-    path: 'users',
-    canActivateChild: [AdminGuard],
     children: [
       {
+        path: '',
+        component: UsersListComponent,
+      },
+      {
         path: ':id/contacts',
-        component: ContactListComponent,
         children: [
+          {
+            path: '',
+            component: ContactListComponent,
+          },
           {
             path: 'new',
             component: ContactFormComponent,
             data: { mode: 'create' },
           },
           {
-            path: 'edit/:id',
+            path: 'edit/:idContact',
             component: ContactFormComponent,
             data: { mode: 'edit' },
           },

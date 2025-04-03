@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { ContactService } from 'src/app/core/services/contact.service';
 import { StorageService } from 'src/app/core/services/storage.service';
-
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-contact-list',
@@ -15,9 +15,11 @@ export class ContactListComponent implements OnInit {
   public userId: string | null = null;
   public userName: string | null = null;
   public userRole: string | null = null;
+  public contactListTitle: string = '';
 
   constructor(
     private contactService: ContactService,
+    private userService: UserService,
     private storageService: StorageService,
     private router: Router,
     private route: ActivatedRoute
@@ -28,9 +30,7 @@ export class ContactListComponent implements OnInit {
       this.userId = this.storageService.getUserId();
     }
     if (this.userRole === 'ADMIN') {
-      this.route.paramMap.subscribe((params) => {
-        this.userId = params.get('id');
-      });
+      this.userId = this.route.snapshot.paramMap.get('id');
     }
     this.userName = this.storageService.getUserName();
 
@@ -39,7 +39,16 @@ export class ContactListComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.userId) {
+      this.userService.getUserById(this.userId).subscribe((user) => {
+        this.contactListTitle =
+          this.userRole === 'ADMIN'
+            ? `Lista de contactos de ${user.name}`
+            : 'Lista de contactos';
+      });
+    }
+  }
 
   onOrderChange(order: any): void {
     if (this.userId) {

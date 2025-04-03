@@ -14,6 +14,8 @@ export class ContactFormComponent implements OnInit {
   formulario: FormGroup;
   mode: string = '';
   contactId: string | null = null;
+  private userRole: string | null = null;
+  private userId: string | null = null;
 
   // Inyectamos el servicio AuthService en el constructor
   constructor(
@@ -22,7 +24,14 @@ export class ContactFormComponent implements OnInit {
     private route: ActivatedRoute,
     private storageService: StorageService
   ) {
-    //this.router.sta
+    // Recuperar rol y segun este, recupera el userId
+    this.userRole = this.storageService.getUserRole();
+    if (this.userRole === 'USER') {
+      this.userId = this.storageService.getUserId();
+    }
+    if (this.userRole === 'ADMIN') {
+      this.userId = this.route.snapshot.paramMap.get('id');
+    }
     this.formulario = new FormGroup({
       name: new FormControl(),
       lastName: new FormControl(),
@@ -31,9 +40,10 @@ export class ContactFormComponent implements OnInit {
       position: new FormControl(),
     });
   }
+
   ngOnInit(): void {
     this.mode = this.route.snapshot.data['mode'];
-    this.contactId = this.route.snapshot.paramMap.get('id');
+    this.contactId = this.route.snapshot.paramMap.get('idContact');
 
     if (this.mode === 'edit' && this.contactId) {
       this.contactService
@@ -44,36 +54,44 @@ export class ContactFormComponent implements OnInit {
     }
   }
 
-  onSubmit(): void {
+  public onSubmit(): void {
     if (this.formulario.valid) {
       const formValue = this.formulario.value;
-      const userId = this.storageService.getUserId();
       if (this.mode === 'edit' && this.contactId) {
-        console.log('editando');
-        this.contactService.editContact(formValue, this.contactId).subscribe({
-          next: (response) => {
-            console.log('User editado con éxito', response);
-            this.router.navigate(['/contacts']);
-          },
-          error: (error) => {
-            console.error('Error al loguear usuario', error);
-          },
-        });
+        this.updateContact(formValue, this.contactId);
+      } else if (this.mode === 'create' && this.userId) {
+        this.createContact(formValue, this.userId);
+      } else {
+        console.log('Formulario inválido');
       }
-      if (this.mode === 'create' && userId) {
-        console.log('añadiendo');
-        this.contactService.addNewContact(formValue, userId).subscribe({
-          next: (response) => {
-            console.log('User añadido con éxito', response);
-            this.router.navigate(['/contacts']);
-          },
-          error: (error) => {
-            console.error('Error al loguear usuario', error);
-          },
-        });
-      }
-    } else {
-      console.log('Formulario inválido');
     }
+  }
+  private createContact(formValue: any, userId: string): void {
+    this.contactService.addNewContact(formValue, userId).subscribe({
+      next: () => {
+        const redirectUrl =
+          this.userRole === 'ADMIN' ? `/users/${userId}/contacts` : '/contacts';
+        this.router.navigate([redirectUrl]);
+      },
+      error: (error) => {
+        console.error('Error al crear contacto', error);
+      },
+    });
+  }
+
+  private updateContact(formValue: any, contactId: string): void {
+    this.contactService.editContact(formValue, contactId).subscribe({
+      next: (response) => {
+        console.log(this.userId);
+        const redirectUrl =
+          this.userRole === 'ADMIN'
+            ? `/users/${this.userId}/contacts`
+            : '/contacts';
+        this.router.navigate([redirectUrl]);
+      },
+      error: (error) => {
+        console.error('Error al editar contacto', error);
+      },
+    });
   }
 }

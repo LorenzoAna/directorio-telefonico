@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { UserService } from 'src/app/core/services/user.service';
 
@@ -16,6 +17,7 @@ export class UsersListComponent {
   constructor(
     private router: Router,
     private storageService: StorageService,
+    private authService: AuthService,
     private userService: UserService 
   ) {
     // Recuperar id
@@ -34,5 +36,8 @@ export class UsersListComponent {
 
   onUserContacts(userId: string): void {
     this.router.navigate([`/users/${userId}/contacts`]);
+  }
+  logout(): void {
+    this.authService.logout();
   }
 }

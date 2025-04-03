@@ -16,10 +16,15 @@
       <div class="acctions d-flex justify-content-between">
         <a href="#" class="btn btn-secondary mt-2">Detalles</a>
         <a
-          routerLink="/contacts/edit/{{ contact.id }}"
+          [routerLink]="
+            userRole === 'ADMIN'
+              ? ['/users', userId, 'contacts','edit', contact.id]
+              : ['/contacts', 'edit', contact.id]
+          "
           class="btn btn-secondary mt-2"
           >Editar</a
         >
+
         <button (click)="onDelete()" class="btn btn-secondary mt-2">
           Borrar
         </button>
