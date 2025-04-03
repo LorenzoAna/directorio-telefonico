@@ -12,7 +12,7 @@ export class UserService {
   private baseUrl = `http://localhost:3000/users`;
 
   getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.baseUrl}`);
+    return this.http.get<User[]>(`${this.baseUrl}?role=USER`);
   }
   deleteUser(userId: string): Observable<any> {
     return this.http.delete<any>(`${this.baseUrl}/${userId}`);

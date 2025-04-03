@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { UserService } from 'src/app/core/services/user.service';
-import { AuthCredentials } from 'src/app/shared/models/auth-credentials.model';
 
 @Component({
   selector: 'app-users-list',
@@ -14,8 +14,9 @@ export class UsersListComponent {
   public userName: string | null = '';
   public userId: string | null = '';
   constructor(
+    private router: Router,
     private storageService: StorageService,
-    private userService: UserService // private contactService: ContactService, // private router: Router
+    private userService: UserService 
   ) {
     // Recuperar id
     this.userId = this.storageService.getUserId();
@@ -29,5 +30,9 @@ export class UsersListComponent {
     this.userService.deleteUser(userId).subscribe(() => {
       this.users$ = this.userService.getAllUsers(); // Actualizar la lista de usuarios después de eliminar
     });
+  }
+
+  onUserContacts(userId: string): void {
+    this.router.navigate([`/users/${userId}/contacts`]);
   }
 }

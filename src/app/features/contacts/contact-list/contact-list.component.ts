@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { ContactService } from 'src/app/core/services/contact.service';
 import { StorageService } from 'src/app/core/services/storage.service';
 
-import { AuthCredentials } from 'src/app/shared/models/auth-credentials.model';
 
 @Component({
   selector: 'app-contact-list',
@@ -15,16 +14,25 @@ export class ContactListComponent implements OnInit {
   public contacts$: Observable<any[]> = of([]);
   public userId: string | null = null;
   public userName: string | null = null;
+  public userRole: string | null = null;
 
   constructor(
     private contactService: ContactService,
     private storageService: StorageService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
-    // Recuperar id
-    this.userId = this.storageService.getUserId();
+    // Recuperar rol y segun este, recupera el userId
+    this.userRole = this.storageService.getUserRole();
+    if (this.userRole === 'USER') {
+      this.userId = this.storageService.getUserId();
+    }
+    if (this.userRole === 'ADMIN') {
+      this.route.paramMap.subscribe((params) => {
+        this.userId = params.get('id');
+      });
+    }
     this.userName = this.storageService.getUserName();
-    const userRole = this.storageService.getUserRole();
 
     if (this.userId) {
       this.contacts$ = this.contactService.getContactsByUserId(this.userId);
@@ -41,9 +49,18 @@ export class ContactListComponent implements OnInit {
       );
     }
   }
-  onContactDeleted(): void {
+  onContactDeleted(contactId: string): void {
     if (this.userId) {
-      this.contacts$ = this.contactService.getContactsByUserId(this.userId);
+      this.contactService
+        .deleteContact(contactId, this.userId)
+        .subscribe(() => {
+          console.log(contactId);
+          if (this.userId) {
+            this.contacts$ = this.contactService.getContactsByUserId(
+              this.userId
+            );
+          }
+        });
     }
   }
 }

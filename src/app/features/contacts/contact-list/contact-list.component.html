@@ -20,7 +20,7 @@
         <app-contact-card
           *ngFor="let contact of contacts"
           [contact]="contact"
-          (contactDeleted)="onContactDeleted()"
+          (contactDeleted)="onContactDeleted($event)"
         ></app-contact-card>
       </div>
     </div>
