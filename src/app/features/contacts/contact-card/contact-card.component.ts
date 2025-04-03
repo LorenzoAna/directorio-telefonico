@@ -15,23 +15,7 @@ export class ContactCardComponent {
 
   @Output() contactDeleted = new EventEmitter<string>();
 
-  constructor(
-    private contactService: ContactService,
-    private storageService: StorageService
-  ) {}
-
-  deleteContact(): void {
-    const userId = this.storageService.getUserId();
-    if (userId) {
-      this.contactService.deleteContact(this.contact.id, userId).subscribe({
-        next: () => {
-          console.log('Contacto y relación eliminados con éxito');
-          this.contactDeleted.emit(this.contact.id);
-        },
-        error: (error) => {
-          console.error('Error al eliminar el contacto y la relación', error);
-        },
-      });
-    }
+  onDelete(): void {
+    this.contactDeleted.emit(this.contact.id);
   }
 }

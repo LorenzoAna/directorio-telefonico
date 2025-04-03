@@ -4,31 +4,33 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class StorageService {
-  // private userId: string | null = null;
-  // private userRole: string | null = null;
-
+  setUserData(id: string, name: string, role: string) {
+    this.setUserId(id);
+    this.setUserName(name);
+    this.setUserRole(role);
+  }
   setUserId(id: string): void {
-    //this.userId = id;
-
-    localStorage.setItem('userId', id); // quitar esta linea
+    localStorage.setItem('userId', id);
+  }
+  setUserName(name: string): void {
+    localStorage.setItem('userName', name);
   }
   setUserRole(role: string): void {
-    //this.userRole = role;
-    localStorage.setItem('userRole', role); // quitar esta linea
+    localStorage.setItem('userRole', role);
   }
   getUserId(): string | null {
-    //return this.userId;
-    return localStorage.getItem('userId'); // quitar esta linea
+    return localStorage.getItem('userId');
+  }
+  getUserName(): string | null {
+    return localStorage.getItem('userName');
   }
   getUserRole(): string | null {
-    //return this.userRole;
-    return localStorage.getItem('userRole'); // quitar esta linea
+    return localStorage.getItem('userRole');
   }
 
   clearUserData(): void {
-    // this.userId = null;
-    // this.userRole = null;
-
-    localStorage.removeItem('userId'); // quitar esta linea
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('userRole');
   }
 }

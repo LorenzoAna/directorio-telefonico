@@ -2,7 +2,11 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <h2 class="display-2 my-4">Lista de contactos</h2>
+      <div class="d-flex justify-content-between">
+        <h2>Bienvenido/a, {{ userName }}</h2>
+        <h3 class="">Panel de usuario</h3>
+      </div>
+      <h2 class="display-4 mb-4">Lista de contactos</h2>
 
       <div class="order-select col-3 my-3">
         <app-reusable-select
@@ -16,7 +20,7 @@
         <app-contact-card
           *ngFor="let contact of contacts"
           [contact]="contact"
-          (contactDeleted)="onContactDeleted()"
+          (contactDeleted)="onContactDeleted($event)"
         ></app-contact-card>
       </div>
     </div>

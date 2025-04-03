@@ -14,7 +14,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   // tipo FormGroup es un formulario reactivo que nos permite realizar ciertas validaciones etc
   formulario: FormGroup;
 
@@ -29,16 +29,29 @@ export class LoginComponent {
       password: new FormControl(),
     });
   }
-
+  ngOnInit(): void {
+    const isUserLoggedIn = this.authService.isUserLoggedIn();
+    const role = this.storageService.getUserRole();
+    if (isUserLoggedIn && role === 'ADMIN') {
+      this.router.navigate(['/users']);
+    } else if (isUserLoggedIn && role === 'USER') {
+      this.router.navigate(['/contacts']);
+    }
+  }
+  
   onSubmit(): void {
     if (this.formulario.valid) {
       const formValue = this.formulario.value;
       this.authService.login(formValue).subscribe({
         next: (response) => {
-          // Guardar usuario en el storage
           this.storageService.setUserId(response.id);
-
-          this.router.navigate(['/contacts']);
+          this.storageService.setUserName(response.name);
+          this.storageService.setUserRole(response.role);
+          if (response.role === 'ADMIN') {
+            this.router.navigate(['/users']);
+          } else {
+            this.router.navigate(['/contacts']);
+          }
         },
         error: (error) => {
           console.error('Error al loguear usuario', error);

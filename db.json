@@ -13,6 +13,20 @@
       "phone": 321321321,
       "role": "ADMIN",
       "password": "5678"
+    },
+    {
+      "id": "0400",
+      "name": "admin",
+      "phone": 6,
+      "role": "ADMIN",
+      "password": "6"
+    },
+    {
+      "id": "105a",
+      "name": "Laura",
+      "phone": 111111111,
+      "role": "USER",
+      "password": "1234"
     }
   ],
   "contacts": [
@@ -41,14 +55,6 @@
       "position": "Diseñador"
     },
     {
-      "id": "4",
-      "name": "Sofia",
-      "lastName": "Martínez",
-      "phone": "369369369",
-      "email": "sofia@example.com",
-      "position": "Product Manager"
-    },
-    {
       "id": "5",
       "name": "Javier",
       "lastName": "Rodríguez",
@@ -63,6 +69,14 @@
       "email": "ana@ana.es",
       "position": "dev",
       "id": "b253"
+    },
+    {
+      "id": "c94d",
+      "name": "Prueba 1",
+      "lastName": "1",
+      "phone": 1,
+      "email": "1",
+      "position": "1"
     }
   ],
   "users_contacts": [
@@ -82,11 +96,6 @@
       "contact_id": "3"
     },
     {
-      "id": "53eb",
-      "user_id": "1",
-      "contact_id": "4"
-    },
-    {
       "id": "572a",
       "user_id": "1",
       "contact_id": "5"
@@ -102,14 +111,24 @@
       "contact_id": "3"
     },
     {
-      "id": "2e2b",
-      "user_id": "2",
-      "contact_id": "4"
-    },
-    {
       "id": "7a47",
       "user_id": "1",
       "contact_id": "b253"
+    },
+    {
+      "id": "7a47",
+      "user_id": "805a",
+      "contact_id": "b253"
+    },
+    {
+      "id": "7a47",
+      "user_id": "105a",
+      "contact_id": "b253"
+    },
+    {
+      "id": "be30",
+      "user_id": "1",
+      "contact_id": "c94d"
     }
   ]
 }

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 // rxjs: bibliteca para programacion asincrona
 import { forkJoin, Observable, of } from 'rxjs';
-import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
+import { catchError,  map, switchMap, tap } from 'rxjs/operators';
 import { Contact } from 'src/app/shared/models/contact.model';
 
 @Injectable({

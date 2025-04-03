@@ -1,0 +1,26 @@
+<app-sidebar></app-sidebar>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="d-flex justify-content-between">
+        <h2>Bienvenido/a, {{ userName }}</h2>
+        <h3 class="">Panel de administrador</h3>
+      </div>
+      <h2 class="display-4 mb-4">Lista de usuarios</h2>
+
+      <div class="order-select col-3 my-3"></div>
+
+      <div
+        *ngIf="users$ | async as users"
+        class="list-container d-flex gap-4 flex-wrap justify-content-center mb-5"
+      >
+        <app-user-card
+          *ngFor="let user of users"
+          [user]="user"
+          (userDeleted)="onUserDeleted($event)"
+          (userContacts)="onUserContacts($event)"
+        ></app-user-card>
+      </div>
+    </div>
+  </div>
+</div>
