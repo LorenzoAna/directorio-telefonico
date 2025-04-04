@@ -6,9 +6,15 @@
         <h2>Bienvenido/a, {{ userName }}</h2>
         <h3 class="">Panel de usuario</h3>
       </div>
-      <h2 class="display-4 mb-4">
-        {{ contactListTitle }}
-      </h2>
+      <!--       Segun el ROL       -->
+      <div *ngIf="userDetails$ | async as userDetails; else noUserDetails">
+        <h2 class="display-4 mb-4">
+          Lista de contactos de {{ userDetails.name }}
+        </h2>
+      </div>
+      <ng-template #noUserDetails>
+        <h2 class="display-4 mb-4">Lista de contactos</h2>
+      </ng-template>
 
       <div class="order-select col-3 my-3">
         <app-reusable-select
