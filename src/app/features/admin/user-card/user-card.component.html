@@ -10,8 +10,8 @@
     <h5 class="card-title">{{ user.name }}</h5>
 
     <div class="card-text d-flex flex-column">
-      <span>Móvil: {{ user.phone }} </span>
-      <span>Rol: {{ user.role | titlecase }}</span>
+      <span class="span-phone">Móvil: {{ user.phone }}</span>
+      <span class="span-role">Rol: {{ user.role | titlecase }}</span>
 
       <div class="actions d-flex justify-content-between">
         <a href="#" class="btn btn-secondary mt-2">Detalles</a>
