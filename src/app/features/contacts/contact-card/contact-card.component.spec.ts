@@ -2,7 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ContactCardComponent } from './contact-card.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import {  RouterLink } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ContactCardComponent', () => {
   let component: ContactCardComponent;
@@ -10,7 +11,7 @@ describe('ContactCardComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterLink, ActivatedRoute],
+      imports: [HttpClientTestingModule, RouterLink, RouterTestingModule],
       declarations: [ContactCardComponent],
     });
     fixture = TestBed.createComponent(ContactCardComponent);
