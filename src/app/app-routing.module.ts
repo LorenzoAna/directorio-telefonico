@@ -56,11 +56,13 @@ const routes: Routes = [
             path: 'new',
             component: ContactFormComponent,
             data: { mode: 'create' },
+            canDeactivate: [CanDeactivateGuard],
           },
           {
             path: 'edit/:idContact',
             component: ContactFormComponent,
             data: { mode: 'edit' },
+            canDeactivate: [CanDeactivateGuard],
           },
         ],
       },
