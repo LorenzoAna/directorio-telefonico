@@ -7,6 +7,7 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { ContactFormComponent } from './features/contacts/contact-form/contact-form.component';
 import { UsersListComponent } from './features/admin/users-list/users-list.component';
 import { AdminGuard } from './core/guards/admin.guard';
+import { CanDeactivateGuard } from './core/guards/can-deactivate.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -16,6 +17,7 @@ const routes: Routes = [
   {
     path: 'contacts',
     canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: '',
@@ -25,11 +27,13 @@ const routes: Routes = [
         path: 'new',
         component: ContactFormComponent,
         data: { mode: 'create' },
+        canDeactivate: [CanDeactivateGuard],
       },
       {
         path: 'edit/:idContact',
         component: ContactFormComponent,
         data: { mode: 'edit' },
+        canDeactivate: [CanDeactivateGuard],
       },
     ],
   },

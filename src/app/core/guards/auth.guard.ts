@@ -8,7 +8,7 @@ import { AuthService } from '../services/auth.service';
 export class AuthGuard {
   constructor(private router: Router, private authService: AuthService) {}
 
-  canActivate(): boolean {
+  private checkLogin(): boolean {
     if (this.authService.isUserLoggedIn()) {
       return true;
     } else {
@@ -17,12 +17,11 @@ export class AuthGuard {
     }
   }
 
-  canActivateChild(): boolean {
-    if (this.authService.isUserLoggedIn()) {
-      return true;
-    } else {
-      this.router.navigate(['/login']);
-      return false;
-    }
+  public canActivate(): boolean {
+    return this.checkLogin();
+  }
+
+  public canActivateChild(): boolean {
+    return this.checkLogin();
   }
 }
