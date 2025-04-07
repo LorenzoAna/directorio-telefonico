@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { ContactService } from 'src/app/core/services/contact.service';
 import { StorageService } from 'src/app/core/services/storage.service';
 
@@ -16,6 +17,7 @@ export class ContactFormComponent implements OnInit {
   contactId: string | null = null;
   private userRole: string | null = null;
   private userId: string | null = null;
+  private hasUnsavedChanges: boolean = false;
 
   // Inyectamos el servicio AuthService en el constructor
   constructor(
@@ -39,6 +41,10 @@ export class ContactFormComponent implements OnInit {
       email: new FormControl(),
       position: new FormControl(),
     });
+    // Detectar cambios en el formulario
+    this.formulario.valueChanges.subscribe(() => {
+      this.hasUnsavedChanges = true;
+    });
   }
 
   ngOnInit(): void {
@@ -50,6 +56,7 @@ export class ContactFormComponent implements OnInit {
         .getContactById(this.contactId)
         .subscribe((contact) => {
           this.formulario.patchValue(contact);
+          this.hasUnsavedChanges = false; // Resetear cambios no guardados después de cargar los datos
         });
     }
   }
@@ -64,8 +71,10 @@ export class ContactFormComponent implements OnInit {
       } else {
         console.log('Formulario inválido');
       }
+      this.hasUnsavedChanges = false; // Resetear cambios no guardados después de enviar el formulario
     }
   }
+  
   private createContact(formValue: any, userId: string): void {
     this.contactService.addNewContact(formValue, userId).subscribe({
       next: () => {
@@ -93,5 +102,14 @@ export class ContactFormComponent implements OnInit {
         console.error('Error al editar contacto', error);
       },
     });
+  }
+
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+    if (this.hasUnsavedChanges) {
+      return confirm(
+        '¿Estás seguro de que quieres salir sin guardar los cambios?'
+      );
+    }
+    return true;
   }
 }
