@@ -33,17 +33,14 @@ export class RegisterComponent {
 
       // Llamamos al metodo del servicio para hacer POST
       this.authService.register(formValue).subscribe({
-        next: (response) => {
-          console.log('User creado con éxito', response);
+        next: () => {
           // Redirige al Dashboard en caso de éxito
           this.router.navigate(['/login']);
         },
         error: (error) => {
           console.error('Error al crear usuario', error);
         },
-        complete: () => {
-          console.log('Proceso de registro completado');
-        },
+       
       });
     } else {
       this.messageService.add({
