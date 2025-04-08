@@ -8,6 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private messageService: MessageService
   ) {
     this.formulario = new FormGroup({
       phone: new FormControl(),
@@ -30,6 +32,7 @@ export class LoginComponent implements OnInit {
     });
   }
   ngOnInit(): void {
+    // determinar el rol para marcar la ruta
     const isUserLoggedIn = this.authService.isUserLoggedIn();
     const role = this.storageService.getUserRole();
     if (isUserLoggedIn && role === 'ADMIN') {
@@ -38,7 +41,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/contacts']);
     }
   }
-  
+
   onSubmit(): void {
     if (this.formulario.valid) {
       const formValue = this.formulario.value;
@@ -58,7 +61,11 @@ export class LoginComponent implements OnInit {
         },
       });
     } else {
-      console.log('Formulario inválido');
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Formulario Inválido',
+        detail: 'Por favor, complete todos los campos requeridos.',
+      });
     }
   }
 }

@@ -17,6 +17,10 @@ import { StorageService } from './core/services/storage.service';
 import { ContactFormComponent } from './features/contacts/contact-form/contact-form.component';
 import { UsersListComponent } from './features/admin/users-list/users-list.component';
 import { UserCardComponent } from './features/admin/user-card/user-card.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { ToastComponent } from './shared/components/toast/toast.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +34,7 @@ import { UserCardComponent } from './features/admin/user-card/user-card.componen
     ContactFormComponent,
     UsersListComponent,
     UserCardComponent,
+    ToastComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,8 +42,10 @@ import { UserCardComponent } from './features/admin/user-card/user-card.componen
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastModule,
   ],
-  providers: [ContactService, AuthService, StorageService],
+  providers: [ContactService, AuthService, StorageService, MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

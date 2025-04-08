@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { User } from 'src/app/shared/models/user.model';
 import { StorageService } from './storage.service';
+import { MessageService } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root',
@@ -11,17 +12,29 @@ export class AuthService {
   private baseUrl: string = 'http://localhost:3000/users';
   constructor(
     private storageService: StorageService,
-    private http: HttpClient
+    private http: HttpClient,
+    private messageService: MessageService
   ) {}
 
   register(formValue: any): Observable<any> {
-    return this.http
-      .post<any>(this.baseUrl, formValue)
-      .pipe(
-        catchError((error) =>
-          this.handleError(error, 'Error al registrar usuario')
-        )
-      );
+    return this.http.post<any>(this.baseUrl, formValue).pipe(
+      map((response) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Registro Exitoso',
+          detail: 'Usuario registrado correctamente',
+        });
+        return response;
+      }),
+      catchError((error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Error al registrar usuario',
+        });
+        return this.handleError(error, 'Error al registrar usuario');
+      })
+    );
   }
 
   login(formValue: any): Observable<any> {
@@ -39,9 +52,14 @@ export class AuthService {
           throw new Error('Credenciales incorrectas');
         }
       }),
-      catchError((error) =>
-        this.handleError(error, 'Error al realizar el login')
-      )
+      catchError((error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: error,
+        });
+        return this.handleError(error, 'Error al realizar el login');
+      })
     );
   }
 
@@ -53,7 +71,7 @@ export class AuthService {
     }
   }
   isAdmin(): boolean {
-    if (this.storageService.getUserRole()==="ADMIN") {
+    if (this.storageService.getUserRole() === 'ADMIN') {
       return true;
     } else {
       return false;

@@ -20,6 +20,48 @@
       "phone": 999999999,
       "role": "ADMIN",
       "password": "admin"
+    },
+    {
+      "id": "30cd",
+      "name": "User1",
+      "phone": 888888888,
+      "role": "ADMIN",
+      "password": "1234"
+    },
+    {
+      "id": "6603",
+      "name": "User1",
+      "phone": 888888888,
+      "role": "ADMIN",
+      "password": "1234"
+    },
+    {
+      "id": "0e14",
+      "name": "User1",
+      "phone": 888888888,
+      "role": "ADMIN",
+      "password": "1234"
+    },
+    {
+      "id": "d295",
+      "name": "User1",
+      "phone": 888888888,
+      "role": "USER",
+      "password": "1"
+    },
+    {
+      "id": "19f7",
+      "name": "User1",
+      "phone": 888888888,
+      "role": "USER",
+      "password": "1"
+    },
+    {
+      "id": "0fad",
+      "name": "User1",
+      "phone": 888888888,
+      "role": "USER",
+      "password": "1"
     }
   ],
   "contacts": [
