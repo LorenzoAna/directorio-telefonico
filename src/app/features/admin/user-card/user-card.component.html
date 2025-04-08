@@ -1,4 +1,4 @@
-<div class="card cursor-pointer" style="width: 18rem" (click)="onUserContacts()">
+<div class="card cursor-pointer" style="width: 18rem">
   <img
     src="https://ui-avatars.com/api/?name={{
       user.name
@@ -14,7 +14,9 @@
       <span class="span-role">Rol: {{ user.role | titlecase }}</span>
 
       <div class="actions d-flex justify-content-between">
-        <a href="#" class="btn btn-secondary mt-2">Detalles</a>
+        <button class="btn btn-secondary mt-2" (click)="onUserContacts()">
+          Contactos
+        </button>
         <a
           routerLink="/contacts/edit/{{ user.id }}"
           class="btn btn-secondary mt-2"

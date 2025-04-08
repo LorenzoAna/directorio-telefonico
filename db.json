@@ -48,20 +48,6 @@
       "phone": 888888888,
       "role": "USER",
       "password": "1"
-    },
-    {
-      "id": "19f7",
-      "name": "User1",
-      "phone": 888888888,
-      "role": "USER",
-      "password": "1"
-    },
-    {
-      "id": "0fad",
-      "name": "User1",
-      "phone": 888888888,
-      "role": "USER",
-      "password": "1"
     }
   ],
   "contacts": [
