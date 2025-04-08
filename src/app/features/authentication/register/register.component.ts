@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
@@ -13,7 +14,11 @@ export class RegisterComponent {
   formulario: FormGroup;
 
   // Inyectamos el servicio AuthService en el constructor
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(
+    private authService: AuthService,
+    private messageService: MessageService,
+    private router: Router
+  ) {
     this.formulario = new FormGroup({
       name: new FormControl(),
       phone: new FormControl(),
@@ -41,7 +46,11 @@ export class RegisterComponent {
         },
       });
     } else {
-      console.log('Formulario inválido');
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Formulario Inválido',
+        detail: 'Por favor, complete todos los campos requeridos.',
+      });
     }
   }
 }
