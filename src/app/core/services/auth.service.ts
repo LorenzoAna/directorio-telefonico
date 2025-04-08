@@ -56,7 +56,7 @@ export class AuthService {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'Error al realizar el login',
+          detail: error,
         });
         return this.handleError(error, 'Error al realizar el login');
       })
